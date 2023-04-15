@@ -234,6 +234,7 @@ if submit_button:
 
                 google_sheet_id = '1DRUNh6JPLDuTtrpmyGCefMQX_Ipfx-PhxPKXj6eIcTk'
                 append_dataframe_to_gsheet(df, google_sheet_id)
+                st.write(df)
             
                 break  # Exit the loop if the API call was successful
             except Exception as e:
