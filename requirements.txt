@@ -1,0 +1,11 @@
+streamlit
+openai
+sentence-transformers
+gspread
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+pandas
+numpy
+gsheetsdb
+gspread_pandas
