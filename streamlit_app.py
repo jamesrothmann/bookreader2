@@ -145,6 +145,16 @@ submit_button = st.button("Submit")
 
 raw_api_responses = [] 
 
+def parse_content_to_dataframe(json_content):
+    data = json.loads(json_content)
+    return pd.DataFrame.from_records(data)
+
+def convert_table_to_json(table_text):
+    lines = table_text.strip().split('\n')
+    header = lines[0].split('|')[1:-1]
+    data = [dict(zip(header, line.split('|')[1:-1])) for line in lines[1:]]
+    return json.dumps(data)
+
 def append_to_dataframe(df, data):
     data_string = StringIO(data)
     new_df = pd.read_csv(data_string, sep='|')
@@ -157,16 +167,7 @@ def save_responses_to_file(responses, filename):
 def get_download_link(filename, text):
     b64 = base64.b64encode(text.encode()).decode()
     return f'<a href="data:file/txt;base64,{b64}" download="{filename}">Download {filename}</a>'
-
-def parse_content_to_dataframe(json_content):
-    data = json.loads(json_content)
-    return pd.DataFrame.from_records(data)
     
-def convert_table_to_json(table_text):
-    lines = table_text.strip().split('\n')
-    header = lines[0].split('|')[1:-1]
-    data = [dict(zip(header, line.split('|')[1:-1])) for line in lines[1:]]
-    return json.dumps(data)
 
 def append_dataframe_to_gsheet(df, sheet_id):
     sheet = authenticate_and_connect(sheet_id)
