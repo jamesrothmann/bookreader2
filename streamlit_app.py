@@ -238,7 +238,7 @@ if submit_button:
                 st.write(df)
                 print(df)
                 print(text_response)
-                Print(json_content)
+                print(json_content)
             
                 break  # Exit the loop if the API call was successful
             except Exception as e:
