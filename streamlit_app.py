@@ -188,10 +188,36 @@ if submit_button:
     for question in initial_questions:
         search_results = search(question, embeddings)
         
-        prompt1 = f"The below are extracts based on a semantic search from a book or a podcast transcript with the name '{book_podcast_name}' in response to the question '{question}'. \\nI want you to extract lessons or principles or secrets for success, building wealth, business advice and/or investing in a table in the following format in the following JSON format: \n\n[\n {\n   \"Question\": \"How does Amazon maintain customer obsession as a core principle throughout its rapid growth and expansion?\",\n   \"Chapter\": \"Jeff Bezos - Invent and Wander\",\n   \"Quote\": \"One thing I love about customers is that they are divinely discontent. Their expectations are never static—they go up.\",\n   \"30_word_summary\": \"Customers' expectations are never static; they go up.\",\n   \"Tag_1\": \"Customer Obsession\",\n   \"Tag_2\": \"Innovation\",\n   \"Tag_3\": [\n      \"Constant Improvement\",\n      \"Success\"\n   ],\n   \"Tag_4\": \"Motivation\",\n   \"Tag_5\": \"Core Principles\",\n   \"7_word_problem_statement\": \"Customers' expectations are never static.\",\n   \"Emotion_tigger\": \"WOW – That’s amazing\",\n   \"Content_type\": \"Counter-Intuitive\"\n}\n]\n\nParagraph/Sentence/Quote - This must be an extract from the text. It must be either counter-intuitive (Not how I expected the world to work) or counter-narrative (Not how I was told it works), or be elegantly articulated (wish that I could have said it like that). \n\nEmotion Triggered: | LOL – That’s so funny| WTF – That pisses me off | AWW – That’s so cute | WOW – That’s amazing | NSFW – That’s Crazy| OHHHH – Now I Get it | FINALLY – someone said what I feel| YAY – That’s great news|\n\nContent Type: Counter-intuitive, Counter-Narrative, or Elegant Articulation\n\nExtract:\n"
+        prompt1 = '''The below are extracts based on a semantic search from a book or a podcast transcript with the name '{}' in response to the question '{}'. \\nI want you to extract lessons or principles or secrets for success, building wealth, business advice and/or investing in a table in the following format in the following JSON format: 
+
+        [
+            {{
+                "Question": "How does Amazon maintain customer obsession as a core principle throughout its rapid growth and expansion?",
+                "Chapter": "Jeff Bezos - Invent and Wander",
+                "Quote": "One thing I love about customers is that they are divinely discontent. Their expectations are never static—they go up.",
+                "30_word_summary": "Customers' expectations are never static; they go up.",
+                "Tag_1": "Customer Obsession",
+                "Tag_2": "Innovation",
+                "Tag_3": "Constant Improvement",
+                "Tag_4": "Motivation",
+                "Tag_5": "Core Principles",
+                "7_word_problem_statement": "Customers' expectations are never static.",
+                "Emotion_tigger": "WOW – That’s amazing",
+                "Content_type": "Counter-Intuitive"
+            }}
+          ]
+
+        Paragraph/Sentence/Quote - This must be an extract from the text. It must be either counter-intuitive (Not how I expected the world to work) or counter-narrative (Not how I was told it works), or be elegantly articulated (wish that I could have said it like that). 
+
+        Emotion Triggered: | LOL – That’s so funny| WTF – That pisses me off | AWW – That’s so cute | WOW – That’s amazing | NSFW – That’s Crazy| OHHHH – Now I Get it | FINALLY – someone said what I feel| YAY – That’s great news|
+
+        Content Type: Counter-intuitive, Counter-Narrative, or Elegant Articulation
+
+        Extract:
+        '''.format(book_podcast_name, question)
 
         search_results_text = "\n".join(search_results)
-        prompt1_with_results = f"{prompt1}\n{search_results_text}"
+        prompt1_with_results = "{}\n{}".format(prompt1, search_results_text)
 
         
         max_retries = 4
