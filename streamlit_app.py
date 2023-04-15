@@ -24,7 +24,8 @@ def authenticate_and_connect(sheet_id):
 
 @st.cache_resource
 def download_file():
-    url = "https://drive.google.com/uc?export=download&id=1lXc7npYfbUW78erBKhiEjRN0AQ6Rk4lD"
+    url = "https://drive.google.com/uc?export=download&id=1vyWbP47JmaKA9pXj2TuLp3tSxElN-Jks" #Jeff Bezos - Speeches, Annual Letters and Interviews
+    #url = "https://drive.google.com/uc?export=download&id=1lXc7npYfbUW78erBKhiEjRN0AQ6Rk4lD" #Invent and Wander
     #url = "https://drive.google.com/uc?export=download&id=1eaypC-XqCGKn56VZRIQdlwsYHwIbQUJr" #Zero to One  - Peter Thiel
     #url = "https://drive.google.com/uc?export=download&id=1e_bneSaNGhY77Nt07RhTjcMekvwHRGjS" #David Senra Podcast Transcripts
     path = "file.json"
