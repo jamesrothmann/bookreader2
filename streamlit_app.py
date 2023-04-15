@@ -149,12 +149,6 @@ def parse_content_to_dataframe(json_content):
     data = json.loads(json_content)
     return pd.DataFrame.from_records(data)
 
-def convert_table_to_json(table_text):
-    lines = table_text.strip().split('\n')
-    header = lines[0].split('|')[1:-1]
-    data = [dict(zip(header, line.split('|')[1:-1])) for line in lines[1:]]
-    return json.dumps(data)
-
 def append_to_dataframe(df, data):
     data_string = StringIO(data)
     new_df = pd.read_csv(data_string, sep='|')
@@ -230,8 +224,7 @@ if submit_button:
                 raw_api_responses.append(api_response.choices[0].to_dict())  # Save the raw JSON response
                 text_response = api_response.choices[0].message['content'].strip()  # Extract the text content
 
-                json_content = convert_table_to_json(text_response)
-                df = parse_content_to_dataframe(json_content)
+                df = parse_content_to_dataframe(text_response)
 
                 google_sheet_id = '1DRUNh6JPLDuTtrpmyGCefMQX_Ipfx-PhxPKXj6eIcTk'
                 append_dataframe_to_gsheet(df, google_sheet_id)
