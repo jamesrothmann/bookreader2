@@ -198,25 +198,25 @@ if submit_button:
         retries = 0
 
         while retries <= max_retries:
-        try:
-            api_response = openaiapi(prompt1_with_results)
-            raw_api_responses.append(api_response.choices[0].to_dict())  # Save the raw JSON response
-            text_response = api_response.choices[0].message['content'].strip()  # Extract the text content
+            try:
+                api_response = openaiapi(prompt1_with_results)
+                raw_api_responses.append(api_response.choices[0].to_dict())  # Save the raw JSON response
+                text_response = api_response.choices[0].message['content'].strip()  # Extract the text content
 
-            json_content = convert_table_to_json(text_response)
-            df = parse_content_to_dataframe(json_content)
+                json_content = convert_table_to_json(text_response)
+                df = parse_content_to_dataframe(json_content)
 
-            google_sheet_id = '1zr9JgBMIUxS8Veq7-LRMSd7KmAP9Q5cqC6jzdUa4UQ0'
-            append_dataframe_to_gsheet(df, google_sheet_id)
+                google_sheet_id = '1zr9JgBMIUxS8Veq7-LRMSd7KmAP9Q5cqC6jzdUa4UQ0'
+                append_dataframe_to_gsheet(df, google_sheet_id)
             
-            break  # Exit the loop if the API call was successful
-        except Exception as e:
-            print(f"Error: {e}")
-            retries += 1
-            if retries > max_retries:
-                st.write("Max retries reached. Unable to get a valid response from the API.")
-            else:
-                st.write(f"Attempt {retries}/{max_retries}: Retrying...")
+                break  # Exit the loop if the API call was successful
+            except Exception as e:
+                print(f"Error: {e}")
+                retries += 1
+                if retries > max_retries:
+                    st.write("Max retries reached. Unable to get a valid response from the API.")
+                else:
+                    st.write(f"Attempt {retries}/{max_retries}: Retrying...")
 
     st.success("Task Completed")
         # ... (existing code) ...
